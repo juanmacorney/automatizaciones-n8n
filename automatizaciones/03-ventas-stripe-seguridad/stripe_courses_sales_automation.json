@@ -1,0 +1,1364 @@
+{
+    "_nota":  "Borrador v2 seguridad (2026-11-11). Version publicada anterior = c640306f (respaldo en respaldos/). Editar en n8n con update_workflow y re-exportar aca.",
+    "name":  "stripe_courses_sales_automation",
+    "id":  "ID_FLUJO_STRIPE",
+    "versionId": "",
+    "activeVersionId": "",
+    "nodes":  [
+                  {
+                      "parameters":  {
+                                         "events":  [
+                                                        "payment_intent.succeeded"
+                                                    ]
+                                     },
+                      "type":  "n8n-nodes-base.stripeTrigger",
+                      "typeVersion":  1,
+                      "position":  [
+                                       0,
+                                       368
+                                   ],
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "stripe_payment",
+                      "webhookId":  "00000000-0000-0000-0000-000000000000",
+                      "retryOnFail":  true,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "stripeApi":  {
+                                                            "id":  "ID_CRED_STRIPE",
+                                                            "name":  "Stripe flor real"
+                                                        }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "rules":  {
+                                                       "values":  [
+                                                                      {
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  true,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "strict",
+                                                                                                             "version":  3
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ $json.curso_clave }}",
+                                                                                                                    "rightValue":  "artista",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "string",
+                                                                                                                                     "operation":  "contains"
+                                                                                                                                 },
+                                                                                                                    "id":  "00000000-0000-0000-0000-000000000000"
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         },
+                                                                          "renameOutput":  true,
+                                                                          "outputKey":  "vende_artista"
+                                                                      },
+                                                                      {
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  true,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "strict",
+                                                                                                             "version":  3
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "id":  "00000000-0000-0000-0000-000000000000",
+                                                                                                                    "leftValue":  "={{ $json.curso_clave }}",
+                                                                                                                    "rightValue":  "iman",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "string",
+                                                                                                                                     "operation":  "contains"
+                                                                                                                                 }
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         },
+                                                                          "renameOutput":  true,
+                                                                          "outputKey":  "metodo_iman"
+                                                                      },
+                                                                      {
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  true,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "strict",
+                                                                                                             "version":  3
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "id":  "00000000-0000-0000-0000-000000000000",
+                                                                                                                    "leftValue":  "={{ $json.curso_clave }}",
+                                                                                                                    "rightValue":  "marcas",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "string",
+                                                                                                                                     "operation":  "contains"
+                                                                                                                                 }
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         },
+                                                                          "renameOutput":  true,
+                                                                          "outputKey":  "colabora_marcas"
+                                                                      },
+                                                                      {
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  true,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "strict",
+                                                                                                             "version":  3
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "id":  "00000000-0000-0000-0000-000000000000",
+                                                                                                                    "leftValue":  "={{ $json.curso_clave }}",
+                                                                                                                    "rightValue":  "podcashter",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "string",
+                                                                                                                                     "operation":  "contains"
+                                                                                                                                 }
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         },
+                                                                          "renameOutput":  true,
+                                                                          "outputKey":  "podcashter"
+                                                                      }
+                                                                  ]
+                                                   },
+                                         "options":  {
+                                                         "allMatchingOutputs":  true,
+                                                         "fallbackOutput":  "extra",
+                                                         "renameFallbackOutput":  "curso_desconocido"
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.switch",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       2688,
+                                       592
+                                   ],
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "Switch"
+                  },
+                  {
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://api.brevo.com/v3/contacts",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth",
+                                         "sendHeaders":  true,
+                                         "headerParameters":  {
+                                                                  "parameters":  [
+                                                                                     {
+                                                                                         "name":  "Content-Type",
+                                                                                         "value":  "application/json"
+                                                                                     }
+                                                                                 ]
+                                                              },
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify({ email: $json.email, listIds: [ $json.es_prueba ? 36 : 22 ], updateEnabled: true }) }}",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.5,
+                      "position":  [
+                                       2912,
+                                       576
+                                   ],
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "brevo_iman",
+                      "retryOnFail":  true,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "httpHeaderAuth":  {
+                                                                 "id":  "ID_CRED_BREVO",
+                                                                 "name":  "brevo"
+                                                             }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://api.brevo.com/v3/contacts",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth",
+                                         "sendHeaders":  true,
+                                         "headerParameters":  {
+                                                                  "parameters":  [
+                                                                                     {
+                                                                                         "name":  "Content-Type",
+                                                                                         "value":  "application/json"
+                                                                                     }
+                                                                                 ]
+                                                              },
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify({ email: $json.email, listIds: [ $json.es_prueba ? 36 : 29 ], updateEnabled: true }) }}",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.5,
+                      "position":  [
+                                       2912,
+                                       0
+                                   ],
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "brevo_artista",
+                      "retryOnFail":  true,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "httpHeaderAuth":  {
+                                                                 "id":  "ID_CRED_BREVO",
+                                                                 "name":  "brevo"
+                                                             }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://api.brevo.com/v3/contacts",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth",
+                                         "sendHeaders":  true,
+                                         "headerParameters":  {
+                                                                  "parameters":  [
+                                                                                     {
+                                                                                         "name":  "Content-Type",
+                                                                                         "value":  "application/json"
+                                                                                     }
+                                                                                 ]
+                                                              },
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify({ email: $json.email, listIds: [ $json.es_prueba ? 36 : 33 ], updateEnabled: true }) }}",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.5,
+                      "position":  [
+                                       2912,
+                                       960
+                                   ],
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "brevo_marcas",
+                      "retryOnFail":  true,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "httpHeaderAuth":  {
+                                                                 "id":  "ID_CRED_BREVO",
+                                                                 "name":  "brevo"
+                                                             }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "sendTo":  "={{ $json.email }}",
+                                         "subject":  "={{ $json.es_prueba ? \u0027[PRUEBA] \u0027 : \u0027\u0027 }}Bienvenida a Método imán ⭐",
+                                         "message":  "=\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"es\"\u003e\n\u003chead\u003e\n\u003cmeta charset=\"UTF-8\"\u003e\n\u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\n\u003ctitle\u003eBienvenida a Método Imán\u003c/title\u003e\n\u003clink href=\"https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1\u0026display=swap\" rel=\"stylesheet\"\u003e\n\u003cstyle\u003e\n  @media only screen and (max-width: 620px) {\n    .container { width: 100% !important; }\n    .pad { padding-left: 22px !important; padding-right: 22px !important; }\n    .stack { display: block !important; width: 100% !important; padding-left: 0 !important; padding-right: 0 !important; }\n    .stack-gap { padding: 0 0 18px 0 !important; }\n    .saludo { font-size: 42px !important; line-height: 44px !important; }\n    .hero-td { height: 300px !important; }\n  }\n\u003c/style\u003e\n\u003c/head\u003e\n\u003cbody style=\"margin:0; padding:0; background-color:#B5B42C;\"\u003e\n\n\u003cdiv style=\"display:none; max-height:0; overflow:hidden; opacity:0;\"\u003e\n  Empieza tu viaje en Método Imán. Acá tenés todo claro y a mano.\n\u003c/div\u003e\n\n\u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color:#B5B42C;\"\u003e\n\u003ctr\u003e\n\u003ctd align=\"center\" style=\"padding:24px 10px 32px 10px;\"\u003e\n\n  \u003ctable role=\"presentation\" class=\"container\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:600px; max-width:600px;\"\u003e\n\n    \u003c!-- Logo --\u003e\n    \u003ctr\u003e\n      \u003ctd class=\"pad\" style=\"padding:6px 28px 22px 28px;\"\u003e\n        \u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\u003e\n          \u003ctr\u003e\n            \u003ctd align=\"left\" valign=\"middle\"\u003e\n              \u003cimg src=\"https://static.wixstatic.com/media/9df753_50910aaedbc54f85a96d171a4a53555a~mv2.png\" width=\"170\" alt=\"Flor Corney\" style=\"display:block; width:170px; height:auto; border:0;\"\u003e\n            \u003c/td\u003e\n            \u003ctd align=\"right\" valign=\"middle\"\u003e\n              \u003cimg src=\"https://static.wixstatic.com/media/9df753_1b9abd7f5ce1468aa916248c4311ed32~mv2.png\" width=\"64\" alt=\"\" style=\"display:block; width:64px; height:auto; border:0;\"\u003e\n            \u003c/td\u003e\n          \u003c/tr\u003e\n        \u003c/table\u003e\n      \u003c/td\u003e\n    \u003c/tr\u003e\n\n    \u003c!-- Hero: foto de fondo + título --\u003e\n    \u003ctr\u003e\n      \u003ctd class=\"hero-td\" background=\"https://static.wixstatic.com/media/9df753_813c9c3e66764f11ac483128fe36d206~mv2.jpg\" bgcolor=\"#3B2A14\" valign=\"bottom\" height=\"360\"\n          style=\"height:360px; background-color:#3B2A14; background-image:url(\u0027https://static.wixstatic.com/media/9df753_813c9c3e66764f11ac483128fe36d206~mv2.jpg\u0027); background-size:cover; background-position:center; border-radius:18px 18px 0 0;\"\u003e\n        \u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\u003e\n          \u003ctr\u003e\n            \u003ctd class=\"pad\" style=\"padding:0 32px 30px 32px;\"\u003e\n              \u003cimg src=\"https://static.wixstatic.com/media/9df753_32da7c97334843aeaabb6b29fc4f2ac1~mv2.png\" width=\"300\" alt=\"Método Imán\" style=\"display:block; width:300px; max-width:100%; height:auto; border:0;\"\u003e\n            \u003c/td\u003e\n          \u003c/tr\u003e\n        \u003c/table\u003e\n      \u003c/td\u003e\n    \u003c/tr\u003e\n\n    \u003c!-- Cuerpo --\u003e\n    \u003ctr\u003e\n      \u003ctd style=\"background-color:#F6EA9C;\"\u003e\n        \u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\u003e\n\n          \u003c!-- Saludo --\u003e\n          \u003ctr\u003e\n            \u003ctd class=\"pad\" style=\"padding:36px 40px 6px 40px;\"\u003e\n              \u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\u003e\n                \u003ctr\u003e\n                  \u003ctd valign=\"top\"\u003e\n                    \u003ch1 class=\"saludo\" style=\"margin:0 0 16px 0; font-family:\u0027Instrument Serif\u0027, Georgia, \u0027Times New Roman\u0027, serif; font-style:italic; font-weight:normal; font-size:50px; line-height:52px; color:#6B2D0A;\"\u003e\n                      Holaa {{ $json.name }}!\n                    \u003c/h1\u003e\n                  \u003c/td\u003e\n                  \u003ctd valign=\"top\" align=\"right\" width=\"74\"\u003e\n                    \u003cimg src=\"https://static.wixstatic.com/media/9df753_c621f3361a2846758182c6f09f6cca2e~mv2.png\" width=\"64\" alt=\"\" style=\"display:block; width:64px; height:auto; border:0;\"\u003e\n                  \u003c/td\u003e\n                \u003c/tr\u003e\n              \u003c/table\u003e\n              \u003cp style=\"margin:0; font-family:Arial, Helvetica, sans-serif; font-size:17px; line-height:27px; color:#5A2A0C;\"\u003e\n                \u003cstrong\u003eFelicidadess, empieza tu viaje en Método Imán\u003c/strong\u003e y este mensaje es para dejarte todo claro y a mano.\n              \u003c/p\u003e\n            \u003c/td\u003e\n          \u003c/tr\u003e\n\n          \u003c!-- Formulario --\u003e\n          \u003ctr\u003e\n            \u003ctd class=\"pad\" style=\"padding:30px 40px 10px 40px;\"\u003e\n              \u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color:#6B2D0A; border-radius:22px;\"\u003e\n                \u003ctr\u003e\n                  \u003ctd style=\"padding:24px 24px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:24px; color:#FFF6C9;\"\u003e\n                    \u003cp style=\"margin:0 0 18px 0;\"\u003e\n                      Quiero conocerte mejor, por favor \u003cstrong style=\"color:#FFFFFF;\"\u003erellená este forms de inscripción.\u003c/strong\u003e\n                    \u003c/p\u003e\n                    \u003ctable role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\u003e\n                      \u003ctr\u003e\n                        \u003ctd style=\"background-color:#FFE600; border-radius:8px;\"\u003e\n                          \u003ca href=\"https://forms.gle/FORMULARIO_EJEMPLO" target=\"_blank\" style=\"display:inline-block; padding:12px 22px; font-family:Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold; color:#3A1A06; text-decoration:none;\"\u003e\n                            Completar el forms\n                          \u003c/a\u003e\n                        \u003c/td\u003e\n                      \u003c/tr\u003e\n                    \u003c/table\u003e\n                  \u003c/td\u003e\n                \u003c/tr\u003e\n              \u003c/table\u003e\n            \u003c/td\u003e\n          \u003c/tr\u003e\n\n          \u003c!-- Compromiso --\u003e\n          \u003ctr\u003e\n            \u003ctd class=\"pad\" style=\"padding:30px 40px 6px 40px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:26px; color:#5A2A0C;\"\u003e\n              \u003cp style=\"margin:0 0 12px 0; font-family:\u0027Instrument Serif\u0027, Georgia, serif; font-style:italic; font-size:34px; line-height:38px; color:#6B2D0A;\"\u003e\n                ¡Sacale todo el jugo a este compromiso!\n              \u003c/p\u003e\n              \u003cp style=\"margin:0;\"\u003e\n                Las clases están en orden para que puedas perfectamente \u003cstrong\u003eautogestionar tu proceso\u003c/strong\u003e. Si bien el material puedes verlo a tu ritmo, te invito a comprometerte \u003cstrong\u003ededicando un tiempo concreto por semana\u003c/strong\u003e al método para que los avances sean progresivos y rápidos.\n              \u003c/p\u003e\n            \u003c/td\u003e\n          \u003c/tr\u003e\n\n          \u003c!-- Telegram --\u003e\n          \u003ctr\u003e\n            \u003ctd class=\"pad\" style=\"padding:28px 40px 6px 40px;\"\u003e\n              \u003cp style=\"margin:0 0 16px 0; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:26px; color:#5A2A0C;\"\u003e\n                Por favor, \u003cstrong\u003eentrá a los dos grupos\u003c/strong\u003e (desde la app de Telegram):\n              \u003c/p\u003e\n\n              \u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\u003e\n                \u003ctr\u003e\n                  \u003c!-- Comunidad --\u003e\n                  \u003ctd class=\"stack stack-gap\" width=\"50%\" valign=\"top\" style=\"padding:0 6px 0 0;\"\u003e\n                    \u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color:#3F7A4F; border-radius:16px;\"\u003e\n                      \u003ctr\u003e\n                        \u003ctd style=\"padding:22px 22px 24px 22px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:21px; color:#F6EA9C;\"\u003e\n                          \u003cimg src=\"https://static.wixstatic.com/media/9df753_cb768f233367403a8f295e397d0de49c~mv2.png\" width=\"28\" alt=\"\" style=\"display:block; width:28px; height:auto; border:0; margin:0 0 10px 0; transform:rotate(14deg);\"\u003e\n                          \u003cp style=\"margin:0 0 6px 0; font-size:18px; line-height:22px; font-weight:bold; color:#FFFFFF;\"\u003eGrupo de la comunidad\u003c/p\u003e\n                          \u003cp style=\"margin:0 0 18px 0;\"\u003ePara compartir ejercicios, avances y preguntas.\u003c/p\u003e\n                          \u003ctable role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\u003e\n                            \u003ctr\u003e\n                              \u003ctd style=\"background-color:#F6EA9C; border-radius:8px;\"\u003e\n                                \u003ca href=\"https://t.me/+ENLACE_INVITACION\" target=\"_blank\" style=\"display:inline-block; padding:10px 18px; font-family:Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold; color:#2C5438; text-decoration:none;\"\u003e\n                                  Unirme\n                                \u003c/a\u003e\n                              \u003c/td\u003e\n                            \u003c/tr\u003e\n                          \u003c/table\u003e\n                        \u003c/td\u003e\n                      \u003c/tr\u003e\n                    \u003c/table\u003e\n                  \u003c/td\u003e\n                  \u003c!-- Comunicados --\u003e\n                  \u003ctd class=\"stack\" width=\"50%\" valign=\"top\" style=\"padding:0 0 0 6px;\"\u003e\n                    \u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color:#6B2D0A; border-radius:16px;\"\u003e\n                      \u003ctr\u003e\n                        \u003ctd style=\"padding:22px 22px 24px 22px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:21px; color:#F6EA9C;\"\u003e\n                          \u003cimg src=\"https://static.wixstatic.com/media/9df753_cb768f233367403a8f295e397d0de49c~mv2.png\" width=\"19\" alt=\"\" style=\"display:block; width:19px; height:auto; border:0; margin:4px 0 14px 6px; transform:rotate(-20deg);\"\u003e\n                          \u003cp style=\"margin:0 0 6px 0; font-size:18px; line-height:22px; font-weight:bold; color:#FFFFFF;\"\u003eGrupo de comunicados\u003c/p\u003e\n                          \u003cp style=\"margin:0 0 18px 0;\"\u003eSolo info y avisos de Flor Corney. \u003cstrong style=\"color:#FFE600;\"\u003eAcá recibís los links de Zoom de los vivos: últimos sábados de cada mes.\u003c/strong\u003e\u003c/p\u003e\n                          \u003ctable role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\u003e\n                            \u003ctr\u003e\n                              \u003ctd style=\"background-color:#FFE600; border-radius:8px;\"\u003e\n                                \u003ca href=\"https://t.me/+ENLACE_INVITACION\" target=\"_blank\" style=\"display:inline-block; padding:10px 18px; font-family:Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold; color:#3A1A06; text-decoration:none;\"\u003e\n                                  Unirme\n                                \u003c/a\u003e\n                              \u003c/td\u003e\n                            \u003c/tr\u003e\n                          \u003c/table\u003e\n                        \u003c/td\u003e\n                      \u003c/tr\u003e\n                    \u003c/table\u003e\n                  \u003c/td\u003e\n                \u003c/tr\u003e\n              \u003c/table\u003e\n            \u003c/td\u003e\n          \u003c/tr\u003e\n\n          \u003c!-- Comunidad y Circle --\u003e\n          \u003ctr\u003e\n            \u003ctd class=\"pad\" style=\"padding:30px 40px 40px 40px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:26px; color:#5A2A0C;\"\u003e\n              \u003cp style=\"margin:0 0 16px 0;\"\u003e\n                Este es un \u003cstrong\u003eespacio de comunidad\u003c/strong\u003e, donde podés compartir los ejercicios, tus avances, hacer preguntas o pedir un consejo. Vas a encontrarte con un grupo en el que cada una está en una etapa diferente: algunas vienen \"más avanzadas\" en cuanto a clases y otras empezando. ¡Esa también es la riqueza del grupo y de tener diferentes visiones! Esperamos leerte y recibirte.\n              \u003c/p\u003e\n              \u003ctable role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-top:1px solid #D9C96A;\"\u003e\n                \u003ctr\u003e\n                  \u003ctd style=\"padding:18px 0 0 0; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:26px; color:#5A2A0C;\"\u003e\n                    \u003cstrong\u003eLa plataforma está en Circle:\u003c/strong\u003e descargá la app de Circle en tu celular para una experiencia cómoda y a mano.\n                  \u003c/td\u003e\n                \u003c/tr\u003e\n              \u003c/table\u003e\n            \u003c/td\u003e\n          \u003c/tr\u003e\n\n        \u003c/table\u003e\n      \u003c/td\u003e\n    \u003c/tr\u003e\n\n    \u003c!-- Cierre --\u003e\n    \u003ctr\u003e\n      \u003ctd class=\"pad\" style=\"background-color:#6B2D0A; padding:40px 40px 42px 40px; border-radius:0 0 18px 18px;\"\u003e\n        \u003cimg src=\"https://static.wixstatic.com/media/9df753_1b9abd7f5ce1468aa916248c4311ed32~mv2.png\" width=\"80\" alt=\"\" style=\"display:block; width:80px; height:auto; border:0; margin:0 0 14px 0;\"\u003e\n        \u003cp style=\"margin:0 0 22px 0; font-family:\u0027Instrument Serif\u0027, Georgia, serif; font-style:italic; font-size:34px; line-height:38px; color:#F6EA9C;\"\u003e\n          Un placer que seas parte, nos veremos pronto y ¡feliz transformación!\n        \u003c/p\u003e\n        \u003cimg src=\"https://static.wixstatic.com/media/9df753_50910aaedbc54f85a96d171a4a53555a~mv2.png\" width=\"150\" alt=\"Flor Corney\" style=\"display:block; width:150px; height:auto; border:0;\"\u003e\n      \u003c/td\u003e\n    \u003c/tr\u003e\n\n    \u003c!-- Pie --\u003e\n    \u003ctr\u003e\n      \u003ctd class=\"pad\" align=\"center\" style=\"padding:22px 40px 0 40px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#FFFFFF;\"\u003e\n        Recibís este email porque te inscribiste en Método Imán.\u003cbr\u003e\n        \u003ca href=\"https://www.florcorney.com\" target=\"_blank\" style=\"color:#FFFFFF;\"\u003eflorcorney.com\u003c/a\u003e\n      \u003c/td\u003e\n    \u003c/tr\u003e\n\n  \u003c/table\u003e\n\n\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/table\u003e\n\u003c/body\u003e\n\u003c/html\u003e",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       2912,
+                                       192
+                                   ],
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "email_bienvenida_iman",
+                      "webhookId":  "00000000-0000-0000-0000-000000000000",
+                      "retryOnFail":  true,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "gmailOAuth2":  {
+                                                              "id":  "ID_CRED_GMAIL",
+                                                              "name":  "Gmail flor"
+                                                          }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "operation":  "append",
+                                         "documentId":  {
+                                                            "__rl":  true,
+                                                            "value":  "ID_HOJA_A",
+                                                            "mode":  "list",
+                                                            "cachedResultName":  "Sistema financiero BOT",
+                                                            "cachedResultUrl":  "https://docs.google.com/spreadsheets/d/ID_HOJA_A/edit?usp=drivesdk"
+                                                        },
+                                         "sheetName":  {
+                                                           "__rl":  true,
+                                                           "value":  1846493477,
+                                                           "mode":  "list",
+                                                           "cachedResultName":  "INGRESOS",
+                                                           "cachedResultUrl":  "https://docs.google.com/spreadsheets/d/ID_HOJA_A/edit#gid=1846493477"
+                                                       },
+                                         "columns":  {
+                                                         "mappingMode":  "defineBelow",
+                                                         "value":  {
+                                                                       "Fecha":  "={{ $json.fecha }}",
+                                                                       "Clienta / Marca":  "={{ $json.name }}",
+                                                                       "Categoría":  "Programas",
+                                                                       "Producto o detalle":  "={{ $json.curso }}",
+                                                                       "Moneda":  "={{ $json.moneda }}",
+                                                                       "Importe cobrado":  "={{ $json.precio }}",
+                                                                       "Notas":  "={{ $json.es_prueba ? \u0027PRUEBA - borrar\u0027 : \u0027\u0027 }}"
+                                                                   },
+                                                         "matchingColumns":  [
+
+                                                                             ],
+                                                         "schema":  [
+                                                                        {
+                                                                            "id":  "Fecha",
+                                                                            "displayName":  "Fecha",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Mes",
+                                                                            "displayName":  "Mes",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Clienta / Marca",
+                                                                            "displayName":  "Clienta / Marca",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "País",
+                                                                            "displayName":  "País",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Categoría",
+                                                                            "displayName":  "Categoría",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Producto o detalle",
+                                                                            "displayName":  "Producto o detalle",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Moneda",
+                                                                            "displayName":  "Moneda",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Importe cobrado",
+                                                                            "displayName":  "Importe cobrado",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "TC",
+                                                                            "displayName":  "TC",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Total UYU",
+                                                                            "displayName":  "Total UYU",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Total USD",
+                                                                            "displayName":  "Total USD",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "¿Lleva IVA?",
+                                                                            "displayName":  "¿Lleva IVA?",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "IVA incluido",
+                                                                            "displayName":  "IVA incluido",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Neto sin IVA",
+                                                                            "displayName":  "Neto sin IVA",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Medio de cobro",
+                                                                            "displayName":  "Medio de cobro",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Estado del cobro",
+                                                                            "displayName":  "Estado del cobro",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Estado de la factura",
+                                                                            "displayName":  "Estado de la factura",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Comprobante que corresponde",
+                                                                            "displayName":  "Comprobante que corresponde",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Cuota",
+                                                                            "displayName":  "Cuota",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Notas",
+                                                                            "displayName":  "Notas",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        }
+                                                                    ],
+                                                         "attemptToConvertTypes":  false,
+                                                         "convertFieldsToString":  false
+                                                     },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.googleSheets",
+                      "typeVersion":  4.7,
+                      "position":  [
+                                       2464,
+                                       320
+                                   ],
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "planilla_finanzas",
+                      "retryOnFail":  true,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "googleSheetsOAuth2Api":  {
+                                                                        "id":  "ID_CRED_SHEETS",
+                                                                        "name":  "Google Sheets flor"
+                                                                    }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "operation":  "append",
+                                         "documentId":  {
+                                                            "__rl":  true,
+                                                            "value":  "ID_HOJA_B",
+                                                            "mode":  "list",
+                                                            "cachedResultName":  "Vivos método imán BOT",
+                                                            "cachedResultUrl":  "https://docs.google.com/spreadsheets/d/ID_HOJA_B/edit?usp=drivesdk"
+                                                        },
+                                         "sheetName":  {
+                                                           "__rl":  true,
+                                                           "value":  "gid=0",
+                                                           "mode":  "list",
+                                                           "cachedResultName":  "Hoja 1",
+                                                           "cachedResultUrl":  "https://docs.google.com/spreadsheets/d/ID_HOJA_B/edit#gid=0"
+                                                       },
+                                         "columns":  {
+                                                         "mappingMode":  "defineBelow",
+                                                         "value":  {
+                                                                       "Fecha inscripción":  "={{ $json.fecha }}",
+                                                                       "Nombre":  "={{ $json.name }}",
+                                                                       "Mail":  "={{ $json.email }}",
+                                                                       "Vivos restantes":  "6"
+                                                                   },
+                                                         "matchingColumns":  [
+
+                                                                             ],
+                                                         "schema":  [
+                                                                        {
+                                                                            "id":  "Fecha inscripción",
+                                                                            "displayName":  "Fecha inscripción",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Nombre",
+                                                                            "displayName":  "Nombre",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Mail",
+                                                                            "displayName":  "Mail",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "Vivos restantes",
+                                                                            "displayName":  "Vivos restantes",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        }
+                                                                    ],
+                                                         "attemptToConvertTypes":  false,
+                                                         "convertFieldsToString":  false
+                                                     },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.googleSheets",
+                      "typeVersion":  4.7,
+                      "position":  [
+                                       2912,
+                                       384
+                                   ],
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "vivos",
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "googleSheetsOAuth2Api":  {
+                                                                        "id":  "ID_CRED_SHEETS",
+                                                                        "name":  "Google Sheets flor"
+                                                                    }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://api.brevo.com/v3/contacts",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth",
+                                         "sendHeaders":  true,
+                                         "headerParameters":  {
+                                                                  "parameters":  [
+                                                                                     {
+                                                                                         "name":  "Content-Type",
+                                                                                         "value":  "application/json"
+                                                                                     }
+                                                                                 ]
+                                                              },
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify({ email: $json.email, listIds: [ $json.es_prueba ? 36 : 35 ], updateEnabled: true }) }}",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.5,
+                      "position":  [
+                                       2912,
+                                       768
+                                   ],
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "brevo_podcashter",
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "httpHeaderAuth":  {
+                                                                 "id":  "ID_CRED_BREVO",
+                                                                 "name":  "brevo"
+                                                             }
+                                      }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "id_desde_stripe",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       224,
+                                       368
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  false,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "s1",
+                                                                                     "name":  "pago_id",
+                                                                                     "value":  "={{ $json.data.object.id }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "s2",
+                                                                                     "name":  "es_prueba",
+                                                                                     "value":  false,
+                                                                                     "type":  "boolean"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "options":  {
+
+                                                     }
+                                     }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "prueba_manual",
+                      "type":  "n8n-nodes-base.manualTrigger",
+                      "typeVersion":  1,
+                      "position":  [
+                                       0,
+                                       592
+                                   ],
+                      "parameters":  {
+
+                                     }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "datos_prueba",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       224,
+                                       592
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  false,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "t1",
+                                                                                     "name":  "pago_id",
+                                                                                     "value":  "pi_EJEMPLO",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "t2",
+                                                                                     "name":  "es_prueba",
+                                                                                     "value":  true,
+                                                                                     "type":  "boolean"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "t3",
+                                                                                     "name":  "email_prueba",
+                                                                                     "value":  "correo@ejemplo.com",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "t4",
+                                                                                     "name":  "curso_prueba",
+                                                                                     "value":  "",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "notes":  "Para probar: id de un pago REAL de Stripe (pi_...), solo se lee. En prueba todo va a la lista 36 de Brevo y al email del admin, y las filas dicen PRUEBA. curso_prueba vacio = usa el producto real."
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "leer_pago",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.5,
+                      "position":  [
+                                       448,
+                                       480
+                                   ],
+                      "parameters":  {
+                                         "method":  "GET",
+                                         "url":  "=https://api.stripe.com/v1/payment_intents/{{ encodeURIComponent($json.pago_id) }}?expand[]=customer\u0026expand[]=latest_charge",
+                                         "authentication":  "predefinedCredentialType",
+                                         "nodeCredentialType":  "stripeApi",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "stripeApi":  {
+                                                            "id":  "ID_CRED_STRIPE",
+                                                            "name":  "Stripe flor real"
+                                                        }
+                                      }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "validar_pago",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       672,
+                                       480
+                                   ],
+                      "parameters":  {
+                                         "mode":  "runOnceForAllItems",
+                                         "jsCode":  "// El aviso de Stripe NO se cree: se relee el pago en Stripe y se comprueba que sea real.\nconst prueba = $(\u0027datos_prueba\u0027).isExecuted ? $(\u0027datos_prueba\u0027).first().json : null;\nconst pedido = prueba || $(\u0027id_desde_stripe\u0027).first().json;\nconst pi = $input.first().json;\nif (!pi || !pi.id) throw new Error(\u0027Stripe no devolvio el pago (respuesta vacia).\u0027);\nif (pi.object !== \u0027payment_intent\u0027 || pi.id !== pedido.pago_id) throw new Error(\u0027Stripe devolvio otra cosa en vez del pago \u0027 + pedido.pago_id + \u0027. No se proceso.\u0027);\nif (pi.status !== \u0027succeeded\u0027) throw new Error(\u0027El pago \u0027 + pi.id + \u0027 NO esta cobrado en Stripe (estado: \u0027 + pi.status + \u0027). No se proceso: posible aviso falso.\u0027);\nif (pi.livemode !== true) throw new Error(\u0027El pago \u0027 + pi.id + \u0027 es del modo de prueba de Stripe, no es una venta real. No se proceso.\u0027);\nconst dias = (Date.now() / 1000 - pi.created) / 86400;\nif (!prueba \u0026\u0026 dias \u003e 3) throw new Error(\u0027El pago \u0027 + pi.id + \u0027 es de hace \u0027 + Math.floor(dias) + \u0027 dias (Stripe solo reenvia avisos hasta 3 dias). Posible aviso repetido o falso: no se proceso, revisarlo a mano.\u0027);\nconst referencia = String((pi.payment_details \u0026\u0026 pi.payment_details.order_reference) || \u0027\u0027);\nreturn [{ json: { ...pi, referencia, es_factura: /^in_[A-Za-z0-9]+$/.test(referencia) } }];"
+                                     }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "tiene_factura",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       896,
+                                       480
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.es_factura }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "true",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        },
+                                         "options":  {
+
+                                                     }
+                                     }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "leer_factura",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.5,
+                      "position":  [
+                                       1120,
+                                       384
+                                   ],
+                      "parameters":  {
+                                         "method":  "GET",
+                                         "url":  "=https://api.stripe.com/v1/invoices/{{ encodeURIComponent($json.referencia) }}",
+                                         "authentication":  "predefinedCredentialType",
+                                         "nodeCredentialType":  "stripeApi",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "stripeApi":  {
+                                                            "id":  "ID_CRED_STRIPE",
+                                                            "name":  "Stripe flor real"
+                                                        }
+                                      }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "leer_checkout",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.5,
+                      "position":  [
+                                       1120,
+                                       576
+                                   ],
+                      "parameters":  {
+                                         "method":  "GET",
+                                         "url":  "=https://api.stripe.com/v1/checkout/sessions?payment_intent={{ encodeURIComponent($json.id) }}\u0026expand[]=data.line_items",
+                                         "authentication":  "predefinedCredentialType",
+                                         "nodeCredentialType":  "stripeApi",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  3000,
+                      "credentials":  {
+                                          "stripeApi":  {
+                                                            "id":  "ID_CRED_STRIPE",
+                                                            "name":  "Stripe flor real"
+                                                        }
+                                      }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "preparar_datos",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1344,
+                                       480
+                                   ],
+                      "parameters":  {
+                                         "mode":  "runOnceForAllItems",
+                                         "jsCode":  "// Todo determinista: quien es, que compro, si es alta o cuota mensual.\nconst ZONA = \u0027America/Montevideo\u0027;\nconst prueba = $(\u0027datos_prueba\u0027).isExecuted ? $(\u0027datos_prueba\u0027).first().json : null;\nconst pi = $(\u0027validar_pago\u0027).first().json;\nconst factura = $(\u0027leer_factura\u0027).isExecuted ? $(\u0027leer_factura\u0027).first().json : null;\nconst sesiones = $(\u0027leer_checkout\u0027).isExecuted ? ($(\u0027leer_checkout\u0027).first().json.data || []) : [];\nconst ses = sesiones[0] || null;\nconst cus = (pi.customer \u0026\u0026 typeof pi.customer === \u0027object\u0027) ? pi.customer : {};\nconst cargo = (pi.latest_charge \u0026\u0026 typeof pi.latest_charge === \u0027object\u0027) ? pi.latest_charge : {};\nconst bd = cargo.billing_details || {};\nconst cd = (ses \u0026\u0026 ses.customer_details) || {};\n// Lo que escribe la compradora se limpia: sin \u003c \u003e \" ni caracteres raros, y sin = + - @ al principio (asi no se vuelve formula en Sheets)\nconst limpiar = s =\u003e String(s || \u0027\u0027).replace(/[\u003c\u003e\"\\u0000-\\u001f]/g, \u0027\u0027).replace(/^[=+\\-@\\s]+/, \u0027\u0027).trim().slice(0, 150);\nlet name = limpiar(cus.name || (factura \u0026\u0026 factura.customer_name) || cd.name || bd.name);\nlet email = String(cus.email || (factura \u0026\u0026 factura.customer_email) || cd.email || bd.email || pi.receipt_email || \u0027\u0027).trim().toLowerCase();\nlet producto = String(pi.description || \u0027\u0027).trim();\nif (!producto \u0026\u0026 factura) producto = ((factura.lines \u0026\u0026 factura.lines.data) || []).map(l =\u003e l.description).filter(Boolean).join(\u0027 + \u0027);\nif (!producto \u0026\u0026 ses) producto = ((ses.line_items \u0026\u0026 ses.line_items.data) || []).map(l =\u003e l.description).filter(Boolean).join(\u0027 + \u0027);\nproducto = limpiar(producto);\n// Cobro mensual de una suscripcion (no es la compra): solo va a finanzas\nconst es_renovacion = !!(factura \u0026\u0026 factura.billing_reason === \u0027subscription_cycle\u0027);\nconst tipo = es_renovacion ? \u0027cuota_mensual\u0027 : (factura ? String(factura.billing_reason || \u0027factura\u0027) : (ses ? \u0027link_de_pago\u0027 : \u0027otro\u0027));\nif (prueba) {\n  email = String(prueba.email_prueba || \u0027\u0027).trim().toLowerCase();\n  name = \u0027PRUEBA \u0027 + (name || \u0027sin nombre\u0027);\n  if (prueba.curso_prueba) producto = limpiar(prueba.curso_prueba);\n}\nconst email_ok = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) \u0026\u0026 email.length \u003c= 254;\nif (!name) name = email_ok ? email : \u0027sin nombre\u0027;\nconst curso = producto.toLowerCase();\n// Sin tildes: \u0027Método Imán\u0027 y \u0027metodo iman\u0027 son lo mismo\nlet curso_clave = curso.normalize(\u0027NFD\u0027).replace(/[̀-ͯ]/g, \u0027\u0027);\nlet motivo_alerta = curso_clave ? \u0027No coincide con ningún curso (artista, imán, marcas, podcashter).\u0027 : \u0027El pago no trae nombre de producto.\u0027;\nif (!email_ok) { curso_clave = \u0027\u0027; motivo_alerta = \u0027El pago no trae un email válido de la compradora.\u0027; }\nconst fecha = DateTime.fromSeconds(pi.created).setZone(ZONA).toFormat(\u0027yyyy-MM-dd\u0027);\nconst precio = String(pi.amount / 100);\nconst moneda = String(pi.currency || \u0027\u0027).toUpperCase();\nconst pago_id = prueba ? pi.id + \u0027-prueba-\u0027 + (curso_clave || \u0027sin-curso\u0027) : pi.id;\nreturn [{ json: { pago_id, email: email_ok ? email : \u0027\u0027, name, producto, curso, curso_clave, fecha, precio, moneda, es_renovacion, tipo, motivo_alerta, es_prueba: !!prueba } }];"
+                                     }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "buscar_pago",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       1568,
+                                       480
+                                   ],
+                      "parameters":  {
+                                         "resource":  "row",
+                                         "operation":  "get",
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "ID_TABLA_PAGOS_STRIPE"
+                                                         },
+                                         "matchType":  "allConditions",
+                                         "filters":  {
+                                                         "conditions":  [
+                                                                            {
+                                                                                "keyName":  "pago_id",
+                                                                                "condition":  "eq",
+                                                                                "keyValue":  "={{ $json.pago_id }}"
+                                                                            }
+                                                                        ]
+                                                     },
+                                         "returnAll":  true
+                                     },
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  3000,
+                      "alwaysOutputData":  true
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "es_nuevo",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1792,
+                                       480
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ !$json.pago_id }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "true",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "executeOnce":  true
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "registrar_pago",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       2016,
+                                       464
+                                   ],
+                      "parameters":  {
+                                         "resource":  "row",
+                                         "operation":  "insert",
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "ID_TABLA_PAGOS_STRIPE"
+                                                         },
+                                         "columns":  {
+                                                         "mappingMode":  "defineBelow",
+                                                         "value":  {
+                                                                       "pago_id":  "={{ $(\u0027preparar_datos\u0027).first().json.pago_id }}",
+                                                                       "curso":  "={{ $(\u0027preparar_datos\u0027).first().json.producto }}",
+                                                                       "fecha":  "={{ $(\u0027preparar_datos\u0027).first().json.fecha }}",
+                                                                       "tipo":  "={{ $(\u0027preparar_datos\u0027).first().json.tipo }}",
+                                                                       "es_prueba":  "={{ $(\u0027preparar_datos\u0027).first().json.es_prueba }}"
+                                                                   },
+                                                         "matchingColumns":  [
+
+                                                                             ],
+                                                         "schema":  [
+                                                                        {
+                                                                            "id":  "pago_id",
+                                                                            "displayName":  "pago_id",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "curso",
+                                                                            "displayName":  "curso",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "fecha",
+                                                                            "displayName":  "fecha",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "tipo",
+                                                                            "displayName":  "tipo",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "es_prueba",
+                                                                            "displayName":  "es_prueba",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "boolean",
+                                                                            "canBeUsedToMatch":  true
+                                                                        }
+                                                                    ]
+                                                     },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  3000
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "datos_pago",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       2240,
+                                       464
+                                   ],
+                      "parameters":  {
+                                         "mode":  "runOnceForAllItems",
+                                         "jsCode":  "return [{ json: $(\u0027preparar_datos\u0027).first().json }];"
+                                     }
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "es_alta",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       2464,
+                                       592
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ !$json.es_renovacion }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "true",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "notes":  "Alta o pago unico = sigue (listas, bienvenida, vivos). Cuota mensual de una suscripcion = solo finanzas."
+                  },
+                  {
+                      "id":  "00000000-0000-0000-0000-000000000000",
+                      "name":  "alerta_curso_desconocido",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       2912,
+                                       1152
+                                   ],
+                      "parameters":  {
+                                         "sendTo":  "correo@ejemplo.com",
+                                         "subject":  "={{ $json.es_prueba ? \u0027[PRUEBA] \u0027 : \u0027\u0027 }}⚠️ Pago de Stripe sin curso reconocido",
+                                         "message":  "=\u003cp\u003eEntró un pago por Stripe de \u003cb\u003e{{ $json.name }}\u003c/b\u003e ({{ $json.precio }} {{ $json.moneda }}) el {{ $json.fecha }}.\u003c/p\u003e\n\u003cp\u003eProducto: \u003cb\u003e{{ $json.producto || \u0027(sin nombre de producto)\u0027 }}\u003c/b\u003e · Email: \u003cb\u003e{{ $json.email || \u0027(sin email)\u0027 }}\u003c/b\u003e\u003c/p\u003e\n\u003cp\u003e{{ $json.motivo_alerta }} Por eso \u003cb\u003eNO se agregó a ninguna lista de Brevo ni recibió bienvenida\u003c/b\u003e. Sí quedó anotado en finanzas.\u003c/p\u003e\n\u003cp\u003eQué hacer: darle acceso a mano. Si es un curso nuevo, avisar para sumarlo a la automatización.\u003c/p\u003e\n\u003cp\u003eId del pago en Stripe: {{ $json.pago_id }}\u003c/p\u003e",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  3000,
+                      "webhookId":  "00000000-0000-0000-0000-000000000000",
+                      "credentials":  {
+                                          "gmailOAuth2":  {
+                                                              "id":  "ID_CRED_GMAIL",
+                                                              "name":  "Gmail flor"
+                                                          }
+                                      }
+                  }
+              ],
+    "connections":  {
+                        "Switch":  {
+                                       "main":  [
+                                                    [
+                                                        {
+                                                            "node":  "brevo_artista",
+                                                            "type":  "main",
+                                                            "index":  0
+                                                        }
+                                                    ],
+                                                    [
+                                                        {
+                                                            "node":  "brevo_iman",
+                                                            "type":  "main",
+                                                            "index":  0
+                                                        },
+                                                        {
+                                                            "node":  "email_bienvenida_iman",
+                                                            "type":  "main",
+                                                            "index":  0
+                                                        },
+                                                        {
+                                                            "node":  "vivos",
+                                                            "type":  "main",
+                                                            "index":  0
+                                                        }
+                                                    ],
+                                                    [
+                                                        {
+                                                            "node":  "brevo_marcas",
+                                                            "type":  "main",
+                                                            "index":  0
+                                                        }
+                                                    ],
+                                                    [
+                                                        {
+                                                            "node":  "brevo_podcashter",
+                                                            "type":  "main",
+                                                            "index":  0
+                                                        }
+                                                    ],
+                                                    [
+                                                        {
+                                                            "node":  "alerta_curso_desconocido",
+                                                            "type":  "main",
+                                                            "index":  0
+                                                        }
+                                                    ]
+                                                ]
+                                   },
+                        "stripe_payment":  {
+                                               "main":  [
+                                                            [
+                                                                {
+                                                                    "node":  "id_desde_stripe",
+                                                                    "type":  "main",
+                                                                    "index":  0
+                                                                }
+                                                            ]
+                                                        ]
+                                           },
+                        "id_desde_stripe":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "leer_pago",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "prueba_manual":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "datos_prueba",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "datos_prueba":  {
+                                             "main":  [
+                                                          [
+                                                              {
+                                                                  "node":  "leer_pago",
+                                                                  "type":  "main",
+                                                                  "index":  0
+                                                              }
+                                                          ]
+                                                      ]
+                                         },
+                        "leer_pago":  {
+                                          "main":  [
+                                                       [
+                                                           {
+                                                               "node":  "validar_pago",
+                                                               "type":  "main",
+                                                               "index":  0
+                                                           }
+                                                       ]
+                                                   ]
+                                      },
+                        "validar_pago":  {
+                                             "main":  [
+                                                          [
+                                                              {
+                                                                  "node":  "tiene_factura",
+                                                                  "type":  "main",
+                                                                  "index":  0
+                                                              }
+                                                          ]
+                                                      ]
+                                         },
+                        "tiene_factura":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "leer_factura",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "node":  "leer_checkout",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "leer_factura":  {
+                                             "main":  [
+                                                          [
+                                                              {
+                                                                  "node":  "preparar_datos",
+                                                                  "type":  "main",
+                                                                  "index":  0
+                                                              }
+                                                          ]
+                                                      ]
+                                         },
+                        "leer_checkout":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "preparar_datos",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "preparar_datos":  {
+                                               "main":  [
+                                                            [
+                                                                {
+                                                                    "node":  "buscar_pago",
+                                                                    "type":  "main",
+                                                                    "index":  0
+                                                                }
+                                                            ]
+                                                        ]
+                                           },
+                        "buscar_pago":  {
+                                            "main":  [
+                                                         [
+                                                             {
+                                                                 "node":  "es_nuevo",
+                                                                 "type":  "main",
+                                                                 "index":  0
+                                                             }
+                                                         ]
+                                                     ]
+                                        },
+                        "es_nuevo":  {
+                                         "main":  [
+                                                      [
+                                                          {
+                                                              "node":  "registrar_pago",
+                                                              "type":  "main",
+                                                              "index":  0
+                                                          }
+                                                      ]
+                                                  ]
+                                     },
+                        "registrar_pago":  {
+                                               "main":  [
+                                                            [
+                                                                {
+                                                                    "node":  "datos_pago",
+                                                                    "type":  "main",
+                                                                    "index":  0
+                                                                }
+                                                            ]
+                                                        ]
+                                           },
+                        "datos_pago":  {
+                                           "main":  [
+                                                        [
+                                                            {
+                                                                "node":  "planilla_finanzas",
+                                                                "type":  "main",
+                                                                "index":  0
+                                                            },
+                                                            {
+                                                                "node":  "es_alta",
+                                                                "type":  "main",
+                                                                "index":  0
+                                                            }
+                                                        ]
+                                                    ]
+                                       },
+                        "es_alta":  {
+                                        "main":  [
+                                                     [
+                                                         {
+                                                             "node":  "Switch",
+                                                             "type":  "main",
+                                                             "index":  0
+                                                         }
+                                                     ]
+                                                 ]
+                                    }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "binaryMode":  "separate",
+                     "timeSavedMode":  "fixed",
+                     "errorWorkflow":  "ID_FLUJO_ERRORES",
+                     "callerPolicy":  "workflowsFromSameOwner",
+                     "availableInMCP":  true
+                 }
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>vista_previa_mail</title>
+</head>
+<body style="margin:0">
+<!--
+  Vista previa del mail de aviso_nuevo_episodio.
+  Corre EXACTAMENTE el mismo codigo del nodo armar_mail (funcion armarMail de abajo)
+  con los datos reales del episodio del 9/11 (ejecucion 113) y muestra el resultado.
+  Si cambias el diseno: edita aca, mira la vista previa, y copia el cuerpo de armarMail
+  al nodo armar_mail de flujos/aviso_nuevo_episodio.js.
+-->
+<script>
+const DATOS = {
+  episodio: {
+    id: '412AfpVkHiiZlAu7i89YO7',
+    titulo: 'Si el estrés seca tu creatividad, recordá esto.',
+    fecha: '2026-11-09',
+    url_spotify: 'https://open.spotify.com/episode/412AfpVkHiiZlAu7i89YO7',
+    imagen_spotify: 'https://i.scdn.co/image/ab6765630000ba8a7b0dddb42be568a1fcae0624'
+  },
+  video: {
+    id: '5JimDlSTy6A',
+    titulo: 'Esto estuvo secando tu creatividad y ni te enteraste.',
+    descripcion: 'Rescatate de la parálisis por analisis en segundos, recordando que esa idea te eligió, Dios te la mandó y vos sos el artista, divertiteeee\nEsto es Puertas y portales podcast \n\nIG https://www.instagram.com/florcorney/?hl=es\n\nPODCASHTER https://www.florcorney.com/podca-hter',
+    miniatura: 'https://i.ytimg.com/vi/5JimDlSTy6A/maxresdefault.jpg',
+    url: 'https://www.youtube.com/watch?v=5JimDlSTy6A'
+  },
+  dudoso: false,
+  otros_videos: []
+};
+// Descripciones REALES de YouTube (canal de Flor, nov 2026) para probar la limpieza
+const PRUEBAS = [
+  "IG @FlorCorney \nConoce Podcashter - 3 días en vivo https://www.florcorney.com/podca-hter",
+  "Vendió 500 oráculos en menos de un año cobrando MÁS caro que todos. ¿Cómo lo hizo?\n\nEn este episodio de Puertas y Portales recibo a Flor de Desde el Alma, mentora, canalizadora espiritual y creadora de su propio oráculo, para hablar de lo que nadie te cuenta sobre hacer crecer un negocio con propósito.\n\nHablamos de por qué dejó de disfrutar lo que amaba y cómo delegar le devolvió el goce. También de cómo distinguir si lo que sentís es miedo o intuición antes de una gran decisión, y de por qué no podés esperar a dejar de tener miedo para avanzar. Contamos cómo rompió la creencia de “nadie lo va a comprar” y vendió 500 oráculos en un mercado saturado, y cómo duplicó sus precios sin perder clientas, pasando de una sesión a una experiencia que cambia vidas.\n\nSi sos coach, terapeuta holística, creativa o mujer sensible con un propósito firme, este episodio es para vos. Crecer también puede ser un acto de servicio.\n\nCapítulos\n00:00 Quién es Flor de Desde el Alma\n03:09 Delegar para volver a disfrutar tu negocio\n10:42 ¿Miedo o intuición? Cómo diferenciarlos\n16:28 Qué hacer cuando el miedo te desregula\n21:59 ¿Este deseo viene del ego o del alma?\n27:15 Crear un oráculo: lo más difícil y lo más hermoso\n29:59 Cómo empezar a cobrar precios más altos\n37:31 De sesión a experiencia: el nuevo Viaje al Alma\n\nSeguinos\n✨ Flor de Desde el Alma: @desdelaalma · desdelalma.com\n✨ Flor Corney: @florcorney · florcorney.com\n\n#emprendedorasconproposito #registrosakashicos #marcapersonal #negocioespiritual #vendecomoartista",
+  "Audito la página de ventas de una clienta (Mili) para que vos también optimices la tuya. Si querés reprogramar lo que crees sobre las ventas y entrar en la era donde multiplicas ventas a través de redes sociales sabiendo exactamente como\n\n- Cómo definir y hablarle a tu clienta ideal que si invierte y filtrar a los clientes canas verdes desde tu comunicación \n\n- Mis mejores secuencias de stories de venta que despiertan demanda\n\nTe espero en Vende como artista por solo 39 USD https://www.florcorney.com/vendecomoartista\n\nTambién recibes el archivo PDF con todas estas correcciones y checklist para armar tu página de ventas que hace a tu clienta ideal babear y comprar.\n\n🎧 Puertas y Portales podcast\nWeb: https://www.florcorney.com\n\n#marcapersonal #emprendedorascreativas #podcastenespañol",
+  "En este episodio te cuento:\n✨ Por qué invertí USD 15.000 en una mentoría (y la conversación con mi madre que me dio el empujón)\n✨ La muerte de identidad que viene con cada salto en tu negocio\n\nPorque no se trata de qué vas a lograr, sino de en quién te vas a convertir para sostenerlo. Normalicemos el éxito, chicas. 🔥\n\n📍 ¿Querés una Isla Creativa en tu país? Comentame de dónde sos 👇\n\n🎧 Puertas y Portales, el podcast para artistas empresarias que quieren vivir de lo que vinieron a hacer al mundo.\n\n📲 @florcorney\n\n🎧 Puertas y Portales podcast\nWeb: https://www.florcorney.com\n\n#marcapersonal #emprendedorascreativas #podcastenespañol",
+  "son cambios incómodos, pero tan necesarios y liberadores.\n\nPara multiplicar tus ventas por redes sociales con diversión, entra en vende como artista https://www.florcorney.com/vendecomoartista\n\nIg  ⁨@florcorney⁩\n\n🎧 Puertas y Portales podcast\nWeb: https://www.florcorney.com\n\n#marcapersonal #emprendedorascreativas #podcastenespañol",
+  "Conversación sobre mentes divergentes con @andydoqui\n\ntortura o genialidad?  El pensamiento divergente es un don que te da miles de soluciones, ideas y a veces... puede ser caótico. @andydoqui nos cuenta como entendernos, usar nuestro don sin abrumarnos y tips para calmar las aguas cretivas.\n\n#Marcapersonal #Creadordecontenido #emprender #creatividad #freelance #mentedivergente #mente #expertas #podcast\n\n🎧 Puertas y Portales podcast\nWeb: https://www.florcorney.com\n\n#marcapersonal #emprendedorascreativas #podcastenespañol",
+  "En 2026, las marcas irresistibles y las comunidades más unidas son creadas y lideradas por artistas. La sensibilidad y la creatividad (lo único que la IA no tiene) son un arma poderosa en la creación de un negocio abundante, con ofertas vendibles que hablan de corazón a corazón. Te cuento por qué.\nIG: @florcorney\nDirige tu marca en Método imán: https://www.florcorney.com/m%C3%A9todo-im%C3%A1nn\n\n#Marcapersonal #Creadordecontenido #emprender #creatividad #freelance #businesscoach #artsita\n\n🎧 Puertas y Portales podcast\nWeb: https://www.florcorney.com\n\n#marcapersonal #emprendedorascreativas #podcastenespañol"
+];
+
+function armarMail($) {
+// ===================== INICIO codigo del nodo armar_mail =====================
+const d = $('decidir').item.json;
+const ep = d.episodio;
+const v = d.video;
+
+// Escapa HTML y las llaves (Brevo usa llaves dobles para sus plantillas)
+const esc = s => String(s || '')
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/{/g, '&#123;').replace(/}/g, '&#125;');
+
+// Paleta y letras (mismo estilo que los mails de Flor en Brevo)
+const C = {
+  fondo: '#efe6d2', tarjeta: '#fbf6ea', oliva: '#68692b', olivaOscuro: '#4a5115',
+  crema: '#fdf3d6', linea: '#f6e7b8', texto: '#2a2119', suave: '#e9dfc6', divisor: '#cdbf9c'
+};
+const SERIF = "'Instrument Serif',Georgia,'Times New Roman',serif";
+const SANS = 'Arial,Helvetica,sans-serif';
+
+// Cuerpo = version SIMPLIFICADA de la descripcion de YouTube: solo lo que habla del episodio.
+// Se van (sin IA, con reglas fijas): capitulos/minutos, hashtags, links, redes (@usuario cortos),
+// titulos tipo "Capitulos"/"Seguinos", la firma del podcast y los "comentame / suscribite".
+// Como Flor escribe primero de que trata el episodio y despues los extras, el texto se CORTA en el
+// primer extra que aparece despues del contenido (lo de mas abajo suele ser promo, capitulos o redes).
+const RED = /@[\w.]+|\b[\w-]+\.(com|net|org|ar|uy|mx|es)\b/i;
+const palabrasSinRedes = l => l.replace(/@[\w.]+|\S+\.(com|net|org|ar|uy|mx|es)\S*/gi, ' ')
+  .replace(/\b(ig|instagram|web|mi web|tiktok)\b/gi, ' ')
+  .split(/\s+/).filter(w => /\p{L}/u.test(w)).length;
+const esExtra = l =>
+  !/\p{L}/u.test(l) ||                                                 // sin letras (solo emojis, guiones...)
+  /https?:\/\/|www\./i.test(l) ||                                      // links
+  /^\s*\(?\d{1,2}:\d{2}(:\d{2})?\)?(\s|$)/.test(l) ||                  // capitulos: 03:09 ...
+  /^\s*(cap[ií]tulos?|timestamps?|seguinos|seguime|segu[ií] a .*|links?|redes( sociales)?|mis redes)\s*:?\s*$/i.test(l) ||
+  /^\s*(🎧|📲|📍)/u.test(l) ||                                          // firmas y llamados con emoji
+  /coment[aá]me|coment[aá] (de|abajo|ac[aá])|suscrib|dale like|campanita/i.test(l) ||
+  (RED.test(l) && (/[:·]/.test(l) || palabrasSinRedes(l) <= 2)) ||     // "IG @florcorney", "Flor: @x · x.com"
+  (/puertas y portales/i.test(l) && l.trim().split(/\s+/).length <= 8); // "Esto es Puertas y portales podcast"
+
+const lineas = [];
+let empezo = false;
+for (const original of String(v.descripcion || '').replace(/\r/g, '').split('\n')) {
+  if (!original.trim()) { lineas.push(''); continue; }
+  const l = original.replace(/(\s*#[\p{L}_][\p{L}\p{N}_]*)+\s*$/u, '').trim();  // hashtags al final (#1 se respeta)
+  if (!l || esExtra(l)) {
+    if (empezo) break;      // primer extra despues del contenido: de aca para abajo no va
+    continue;               // extras antes del contenido: se saltean
+  }
+  lineas.push(l);
+  empezo = true;
+}
+const texto = lineas.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+
+const parrafos = esc(texto)
+  .split(/\n{2,}/)
+  .filter(p => p.trim())
+  .map(p => '<p style="margin:0 0 18px;font-family:' + SANS + ';font-size:16px;line-height:26px;color:' + C.texto + ';">' +
+    p.replace(/\n/g, '<br>') + '</p>')
+  .join('');
+
+// Titulo del mail (y del asunto) = el titulo del episodio en Spotify. Si faltara, el del video.
+// Si termina con algo entre parentesis, eso va abajo en cursiva (como el mail de referencia)
+const titulo = String(ep.titulo || v.titulo || '').trim();
+const partes = titulo.match(/^(.+?)\s*(\([^()]+\))\s*$/);
+const tituloHtml = partes
+  ? esc(partes[1]) + '<br><em style="font-family:' + SERIF + ';font-style:italic;">' + esc(partes[2]) + '</em>'
+  : esc(titulo);
+
+// Texto que se ve al lado del asunto en la bandeja: primera linea de la descripcion sin links
+const primera = texto.split('\n').find(l => l.trim() && !/https?:\/\//.test(l)) || titulo;
+const preencabezado = esc(primera.trim().slice(0, 110));
+const relleno = '&#847;&zwnj;&nbsp;'.repeat(60);
+
+const foto = v.miniatura || ep.imagen_spotify;
+
+const linea = ancho => '<td style="border-top:1px solid ' + C.linea + ';width:' + ancho + 'px;font-size:0;line-height:0;">&nbsp;</td>';
+
+const boton = (url, texto, relleno) =>
+  '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;"><tr>' +
+  '<td align="center" style="' + (relleno
+    ? 'background:' + C.olivaOscuro + ';'
+    : 'border:1.5px solid ' + C.olivaOscuro + ';') + 'border-radius:4px;">' +
+  '<a href="' + esc(url) + '" target="_blank" style="display:block;padding:' + (relleno ? '16px' : '15px') +
+  ' 10px;font-family:' + SANS + ';font-size:15px;font-weight:bold;text-decoration:none;color:' +
+  (relleno ? C.crema : C.olivaOscuro) + ';">' + texto + ' &rarr;</a></td></tr></table>';
+
+// La tarjeta del mail (va en la campana y, igual, en la vista previa del correo de aprobacion)
+const tarjeta =
+  '<table role="presentation" class="contenedor" width="600" cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:600px;max-width:600px;background:' + C.tarjeta + ';border-radius:18px;overflow:hidden;">' +
+
+  // Encabezado oliva: "Puertas y Portales · Nuevo episodio" + titulo grande
+  '<tr><td class="px" style="background:' + C.oliva + ';padding:40px 48px 36px;">' +
+  '<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;"><tr>' + linea(36) +
+  '<td style="padding-left:12px;font-family:' + SANS + ';font-size:11px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:' + C.crema + ';">Puertas y Portales &middot; Nuevo episodio</td>' +
+  '</tr></table>' +
+  '<h1 class="h1" style="margin:20px 0 0;font-family:' + SERIF + ';font-weight:normal;font-size:44px;line-height:46px;color:' + C.crema + ';">' + tituloHtml + '</h1>' +
+  '</td></tr>' +
+
+  // Miniatura (lleva a YouTube)
+  (foto
+    ? '<tr><td align="center" class="px" style="padding:36px 48px 20px;"><a href="' + esc(v.url) + '" target="_blank" style="text-decoration:none;">' +
+      '<img src="' + esc(foto) + '" width="504" alt="' + esc(titulo) + '" style="display:block;width:100%;max-width:504px;height:auto;border:0;border-radius:14px;margin:0 auto;"></a></td></tr>'
+    : '') +
+
+  // Botones: YouTube (lleno) y Spotify (borde)
+  '<tr><td class="px" style="padding:' + (foto ? '0' : '36px') + ' 48px 32px;">' +
+  '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;"><tr>' +
+  '<td class="btn-mitad" width="50%" style="padding-right:6px;">' + boton(v.url, 'Ver en YouTube', true) + '</td>' +
+  '<td class="btn-mitad" width="50%" style="padding-left:6px;">' + boton(ep.url_spotify, 'Escuchar en Spotify', false) + '</td>' +
+  '</tr></table></td></tr>' +
+
+  // Texto (descripcion de YouTube)
+  (parrafos ? '<tr><td class="px" style="padding:0 48px 10px;">' + parrafos + '</td></tr>' : '') +
+
+  // Divisor + firma
+  '<tr><td class="px" style="padding:0 48px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;"><tr>' +
+  '<td style="border-top:1px solid ' + C.divisor + ';font-size:0;line-height:0;">&nbsp;</td></tr></table></td></tr>' +
+  '<tr><td align="center" class="px" style="padding:24px 48px 36px;">' +
+  '<p style="margin:0;font-family:' + SERIF + ';font-style:italic;font-size:30px;line-height:34px;color:' + C.olivaOscuro + ';">Flor</p></td></tr>' +
+
+  // Pie: darse de baja
+  '<tr><td align="center" style="background:' + C.oliva + ';padding:20px 30px;font-family:' + SANS + ';font-size:12px;line-height:19px;color:' + C.suave + ';">' +
+  '<a href="{{ unsubscribe }}" target="_blank" style="color:' + C.suave + ';text-decoration:underline;">Darme de baja</a></td></tr>' +
+  '</table>';
+
+const envoltorio = contenido =>
+  '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:' + C.fondo + ';">' +
+  '<tr><td align="center" style="padding:28px 12px;">' + contenido + '</td></tr></table>';
+
+const html = '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">' +
+  '<meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(titulo) + '</title>' +
+  '<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">' +
+  '<style>@media only screen and (max-width:620px) { ' +
+  '.contenedor { width:100% !important; } ' +
+  '.px { padding-left:24px !important; padding-right:24px !important; } ' +
+  '.h1 { font-size:34px !important; line-height:38px !important; } ' +
+  '.btn-mitad { display:block !important; width:100% !important; padding:0 0 10px 0 !important; } ' +
+  '}</style></head>' +
+  '<body style="margin:0;padding:0;background:' + C.fondo + ';">' +
+  '<div style="display:none;max-height:0;overflow:hidden;font-size:1px;line-height:1px;color:' + C.fondo + ';">' + preencabezado + relleno + '</div>' +
+  envoltorio(tarjeta) +
+  '</body></html>';
+
+// Avisos para Flor en el correo de aprobacion (no van en el mail de la lista)
+const aviso_dudoso = (d.dudoso
+  ? '<p style="background:#fff4e5;border:1px solid #f0a020;padding:10px;border-radius:6px;"><b>Ojo:</b> había más de un video de YouTube posible ese día (' +
+    d.otros_videos.map(esc).join(', ') + '). Fijate que el elegido sea el correcto antes de aprobar.</p>'
+  : '') +
+  (!parrafos
+    ? '<p style="background:#fff4e5;border:1px solid #f0a020;padding:10px;border-radius:6px;"><b>Ojo:</b> la descripción de YouTube no tenía texto sobre el episodio (solo links, redes o hashtags), así que el mail va sin texto. Si querés agregarle uno, editá el borrador en Brevo antes de aprobar.</p>'
+    : '');
+
+return { json: {
+  asunto: ('🎙️ Nuevo episodio - ' + titulo).replace(/[{}]/g, ''),
+  nombre_campana: 'Podcast - ' + titulo + ' (' + ep.fecha + ')',
+  html,
+  vista_previa: envoltorio(tarjeta).replace('{{ unsubscribe }}', '#'),   // en el correo de aprobacion no aplica
+  titulo_html: esc(ep.titulo),
+  video_titulo_html: esc(v.titulo),
+  aviso_dudoso
+} };
+// ===================== FIN codigo del nodo armar_mail =====================
+}
+
+// Muestra UN ejemplo (el ultimo episodio real) con su asunto arriba
+window.RESULTADO = armarMail(() => ({ item: { json: DATOS } })).json;
+const cab = document.createElement('div');
+cab.style.cssText = 'font:14px Arial,sans-serif;padding:14px 16px;background:#222;color:#fff;';
+cab.textContent = 'Asunto: ' + window.RESULTADO.asunto;
+const marco = document.createElement('iframe');
+marco.style.cssText = 'display:block;width:100%;height:1400px;border:0;';
+marco.srcdoc = window.RESULTADO.html;
+marco.onload = () => { marco.style.height = (marco.contentDocument.documentElement.scrollHeight + 10) + 'px'; };
+document.body.append(cab, marco);
+
+// Suite de la limpieza: corre el mismo codigo con descripciones REALES de YouTube (no se muestra)
+window.SUITE = PRUEBAS.map(desc => {
+  const caso = JSON.parse(JSON.stringify(DATOS));
+  caso.video.descripcion = desc;
+  const r = armarMail(() => ({ item: { json: caso } })).json;
+  const m = r.html.match(/<p style="margin:0 0 18px[\s\S]*?(?=<\/td>)/g) || [];
+  return m.join('').replace(/<br>/g, '\n').replace(/<\/p>/g, '\n\n').replace(/<[^>]+>/g, '').trim() || '(VACIO -> aviso a Flor)';
+});
+</script>
+</body>
+</html>
